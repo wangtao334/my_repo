@@ -1,5 +1,5 @@
 node {
-  dev mvnHome
+  def mvnHome
   stage('Preparation') {
     println WORKSPACE
   }
