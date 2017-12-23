@@ -1,1 +1,1 @@
-println WORKSPACE
+println env.WORKSPACE
