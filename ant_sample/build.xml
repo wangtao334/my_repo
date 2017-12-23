@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="ant_sample" default="run" basedir=".">
+	<property name="src" value="src"></property>
+	<property name="dest" value="dest"></property>
+	<property name="hello_jar" value="hello.jar"></property>
+	<target name="init">
+		<mkdir dir="${dest}"/>
+	</target>
+	<target name="compile" depends="init">
+		<javac srcdir="${src}" destdir="${dest}" includeantruntime="on"></javac>
+	</target>
+	<target name="build" depends="compile">
+		<jar destfile="${hello_jar}" basedir="${dest}"></jar>
+	</target>
+	<target name="run" depends="build">
+		<java classname="test.ant.HelloWorld" classpath="${hello_jar}"></java>
+	</target>
+	<target name="clean">
+		<delete dir="${dest}"></delete>
+		<delete file="${hello_jar}"></delete>
+	</target>
+	<target name="rerun">
+		<ant target="clean"></ant>
+		<ant target="run"></ant>
+	</target>
+</project>
