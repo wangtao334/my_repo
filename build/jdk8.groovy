@@ -1,6 +1,7 @@
 node {
   def mvnHome
   stage('Preparation') {
-    println WORKSPACE
+    mvnHome = tool 'M3'
+    println "mvnHome = " + mvnHome
   }
 }
