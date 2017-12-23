@@ -1,1 +1,1 @@
-println env.JAVA_HOME
+println env.WORKSPACE
