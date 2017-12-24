@@ -35,7 +35,7 @@ node {
     changeMap.each {
       projectNameEntry -> {
         projectNameEntry.value.each {
-          println fileEntry.key + " : " + fileEntry.value
+          fileEntry -> println fileEntry.key + " : " + fileEntry.value
         }
       }
     }
