@@ -7,9 +7,9 @@ node {
   
   stage('Checkout') {
     checkout scm
-    def changeMap = []    
-    changeMap.put("a", "a00")
-    println changeMap.get("a");
+    def changeMap = [:]
+    changeMap.a = "a00"
+    println changeMap.a
     // check change.
     def changeLogSets = currentBuild.changeSets
     for(int i = 0; i < changeLogSets.size(); i++) {
