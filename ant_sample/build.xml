@@ -2,7 +2,7 @@
 <project name="ant_sample" default="build" basedir=".">
 	<!-- <property environment="env"></property> -->
 	<property name="src" value="src"></property>
-	<property name="dest" value="dest"></property>
+	<property name="dest" value="classes"></property>
 	<target name="init">
 		<mkdir dir="${dest}"/>
 	</target>
