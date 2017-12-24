@@ -19,7 +19,10 @@ node {
           def file = files[k]
           def projectName = file.path.substring(0, file.path.indexOf("/"))
           println "projectName = " + projectName
-          println file.editType.name + " : " + file.path
+          def filePath = file.path.substring(file.path.indexOf("/"))
+          println "filePath = " + filePath
+          def editType = file.editType.name
+          println "editType = " + editType
         }
       }
     }
