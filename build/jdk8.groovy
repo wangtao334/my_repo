@@ -22,7 +22,7 @@ node {
         for(int k = 0; k < files.size(); k++) {
           def file = files[k]
           def projectName = file.path.substring(0, file.path.indexOf("/"))
-          if(projectName.startsWith()) {
+          if(projectName.startsWith("build")) {
             continue
           }
           println "projectName = " + projectName
