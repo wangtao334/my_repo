@@ -22,13 +22,10 @@ node {
           def file = files[k]
           def projectName = file.path.substring(0, file.path.indexOf("/"))
           if(projectName.startsWith("build")) {
-            //continue
+            continue
           }
-          println "projectName = " + projectName
           def filePath = file.path.substring(file.path.indexOf("/"))
-          println "filePath = " + filePath
           def editType = file.editType.name
-          println "editType = " + editType
           if(!changeMap.containsKey("${projectName}")) {
             changeMap."${projectName}" = [:]
             changeMap."${projectName}"."${filePath}" = editType
@@ -51,7 +48,10 @@ node {
   }
   if(changeMap.size() > 0) {
     stage('Build') {
-      
+      changeMap.each {
+        key,value -> 
+          sh '${ANT_HOME}/bin '
+      }
     }
   }
 }
