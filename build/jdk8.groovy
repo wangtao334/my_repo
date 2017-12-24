@@ -50,7 +50,7 @@ node {
     stage('Build') {
       changeMap.each {
         key,value -> 
-          sh '${ANT_HOME}/bin/ant -f ${WORKSPACE}/${key}/build.xml'
+          echo '${ANT_HOME}/bin/ant -f ${WORKSPACE}/${key}/build.xml'
       }
     }
   }
