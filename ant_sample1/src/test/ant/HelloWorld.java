@@ -6,5 +6,6 @@ public class HelloWorld {
 		System.out.println("0001");
 		System.out.println("0002");
 		System.out.println("0003");
+		System.out.println("0004");
 	}
 }
