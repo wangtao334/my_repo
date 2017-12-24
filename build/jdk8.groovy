@@ -1,11 +1,17 @@
 def changeMap = [:]
+def mvnHome
+def antHome
+def javaHome
 node {
   stage('Preparation') {
-    println "MAVEN_HOME = " + MAVEN_HOME
+    mvnHome = MAVEN_HOME
+    println "MAVEN_HOME = " + mvnHome
     sh 'mvn -version'
-    println "ANT_HOME = " + ANT_HOME
+    antHome = ANT_HOME
+    println "ANT_HOME = " + antHome
     sh 'ant -version'
-    println "JAVA_HOME = " + JAVA_HOME
+    javaHome = JAVA_HOME
+    println "JAVA_HOME = " + javaHome
     sh 'java -version'
   }
   
@@ -49,7 +55,7 @@ node {
     stage('Build') {
       changeMap.each {
         key,value -> 
-          echo '${ANT_HOME}'
+          echo '${antHome}'
       }
     }
   }
