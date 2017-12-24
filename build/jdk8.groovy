@@ -1,4 +1,4 @@
-{ node {
+node {
   stage('Preparation') {
     println "MAVEN_HOME = " + MAVEN_HOME
     println "WORKSPACE = " + WORKSPACE
