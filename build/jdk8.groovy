@@ -39,6 +39,7 @@ node {
         }
       }
     }
+    println "Change Project Count : " + changeMap.size()
     changeMap.each {
       projectNameEntry -> 
         println projectNameEntry.key
