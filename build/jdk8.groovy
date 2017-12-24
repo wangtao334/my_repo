@@ -42,7 +42,6 @@ node {
         projectNameEntry.value.each {
           fileEntry -> 
             println fileEntry.value + " : " +fileEntry.key
-          sh 'echo ${fileEntry.value}'
         }
     }
   }
