@@ -33,8 +33,11 @@ node {
           }
           def filePath = file.path.substring(file.path.indexOf("/"))
           def editType = file.editType.name
-          if(editType.equals("delete") && filePath.startsWith("/src") && filePath.endsWith(".java")) {
-            delClsFlg = true
+          if(filePath.startsWith("/src") && filePath.endsWith(".java")) {
+            env."${projectName}_delete_jar" = true
+            if(editType.equals("delete")) {
+              delClsFlg = true
+            }
           }
           if(!changeMap.containsKey(projectName)) {
             changeMap."${projectName}" = [:]
