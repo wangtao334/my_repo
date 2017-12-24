@@ -51,22 +51,26 @@ node {
         println projectNameEntry.key
         projectNameEntry.value.each {
           fileEntry -> 
-            println fileEntry.value + " : " +fileEntry.key
+            println projectNameEntry.key + fileEntry.value + " : " +fileEntry.key
         }
     }
   }
-  if(delClsFlg) {
-    stage('Delete Class File') {
+  stage('Delete Class File') {
+    if(elClsFlg) {
       println "D C F"
+    } else {
+      println "No java file deleted."
     }
   }
-  if(changeMap.size() > 0) {
-    stage('Build') {
+  
+  stage('Build') {
+    if(changeMap.size() > 0) {
       changeMap.each {
         key,value ->
-          println key
           sh 'ant -f ${WORKSPACE}/' + key + '/build.xml'
       }
+    } else {
+      println "No project changed."
     }
   }
 }
