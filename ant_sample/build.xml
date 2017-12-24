@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project name="ant_sample" default="build" basedir=".">
-	<!-- <property environment="env"></property> -->
+	<property environment="env"></property>
 	<property name="src" value="src"></property>
 	<property name="dest" value="classes"></property>
-	<target name="init">
+	<target name="init" if="env.build_ant_sample">
 		<mkdir dir="${dest}"/>
 		<delete file="ant_sample.jar"></delete>
 	</target>
