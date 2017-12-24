@@ -94,7 +94,7 @@ node {
   stage('Map Test') {
     def m = [:]
     def pn = 'aa';
-    if(!m.containsKey("${pn}")) {
+    if(!m.containsKey(pn)) {
       println "1"
       m."${pn}" = [:]
       m."${pn}".f1 = "file1"
@@ -103,7 +103,7 @@ node {
       m."${pn}".f3 = "file3"
     }
 
-    if(!m.containsKey("${pn}")) {
+    if(!m.containsKey(pn)) {
       println "2"
       m."${pn}" = [:]
       m."${pn}".f2 = "file2"
