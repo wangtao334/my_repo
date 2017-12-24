@@ -68,6 +68,7 @@ node {
     if(changeMap.size() > 0) {
       changeMap.each {
         key,value ->
+          println key + " is Builded."
           sh 'ant -f ${WORKSPACE}/' + key + '/build.xml'
       }
     } else {
