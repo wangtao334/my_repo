@@ -5,6 +5,7 @@
 	<property name="dest" value="classes"></property>
 	<target name="init">
 		<mkdir dir="${dest}"/>
+		<delete file="ant_sample.jar"></delete>
 	</target>
 	<target name="compile" depends="init">
 		<javac srcdir="${src}" destdir="${dest}" includeantruntime="on"></javac>
