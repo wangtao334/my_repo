@@ -32,5 +32,8 @@
         }
       }
     }
+    changeMap.each{
+      entry -> println entry.key + entry.value
+    }
   }
 }
