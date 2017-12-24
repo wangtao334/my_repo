@@ -1,8 +1,11 @@
 node {
   stage('Preparation') {
     println "MAVEN_HOME = " + MAVEN_HOME
-    println "WORKSPACE = " + WORKSPACE
     sh 'mvn -version'
+    println "ANT_HOME = " + ANT_HOME
+    sh 'ant -version'
+    println "JAVA_HOME = " + JAVA_HOME
+    sh 'java -version'
   }
   
   stage('Checkout') {
