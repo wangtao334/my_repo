@@ -91,4 +91,25 @@ node {
       println "No project changed."
     }
   }
+  stage('Map Test') {
+    def m = [:]
+    def pn = 'aa';
+    if(!m.containsKey("${pn}")) {
+      println "1"
+      m."${pn}" = [:]
+      m."${pn}".f1 = "file1"
+    } else {
+      println "3"
+      m."${pn}".f3 = "file3"
+    }
+
+    if(!m.containsKey("${pn}")) {
+      println "2"
+      m."${pn}" = [:]
+      m."${pn}".f2 = "file2"
+    } else {
+      println "4"
+      m."${pn}".f4 = "file4"
+    }
+  }
 }
