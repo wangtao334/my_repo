@@ -6,6 +6,7 @@ node {
   }
   
   stage('Checkout') {
+    def changeMap = [];
     checkout scm
     // check change.
     def changeLogSets = currentBuild.changeSets
