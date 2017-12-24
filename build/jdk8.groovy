@@ -62,7 +62,7 @@ node {
             key,value -> 
               if(value.equals("delete") && key.startsWith("/src") && key.endsWith(".java")) {
                 sh 'rm -rf ${WORKSPACE}/' + projectNameEntry.key + key.replaceFirst("/src", "/classes").replace(".java", ".class")
-                sh 'rm -rf ${WORKSPACE}/' + projectNameEntry.key + key.replaceFirst("/src", "/classes").replace(".java", "\\\$$.class")
+                sh 'rm -rf ${WORKSPACE}/' + projectNameEntry.key + key.replaceFirst("/src", "/classes").replace(".java", "\\$.class")
               }
           }
       }
