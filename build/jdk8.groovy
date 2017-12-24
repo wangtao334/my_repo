@@ -56,7 +56,7 @@ node {
       changeMap.each {
         key,value ->
           println key
-          sh 'ant -f ${WORKSPACE}/"${key}"/build.xml'
+          sh 'ant -f ${WORKSPACE}/' + key + '/build.xml'
       }
     }
   }
