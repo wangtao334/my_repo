@@ -45,14 +45,6 @@ node {
         }
       }
     }
-    changeMap.each {
-      projectNameEntry -> 
-        println projectNameEntry.key
-        projectNameEntry.value.each {
-          fileEntry -> 
-            println projectNameEntry.key + fileEntry.value + " : " +fileEntry.key
-        }
-    }
   }
   stage('Delete Class File') {
     if(delClsFlg) {
