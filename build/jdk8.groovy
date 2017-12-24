@@ -54,7 +54,8 @@ node {
   if(changeMap.size() > 0) {
     stage('Build') {
       changeMap.each {
-        key,value -> 
+        key,value ->
+          println key
           sh 'ant -f ${WORKSPACE}/"${key}"/build.xml'
       }
     }
