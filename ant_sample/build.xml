@@ -3,11 +3,13 @@
 	<property environment="env"></property>
 	<property name="src" value="src"></property>
 	<property name="dest" value="classes"></property>
-	<target name="init" if="env.build_ant_sample">
+	<target name="init">
 		<mkdir dir="${dest}"/>
+	</target>
+	<target name="delete" if="env.ant_sample_delete_jar">
 		<delete file="ant_sample.jar"></delete>
 	</target>
-	<target name="compile" depends="init">
+	<target name="compile" depends="init,delete">
 		<javac srcdir="${src}" destdir="${dest}" includeantruntime="on"></javac>
 	</target>
 	<target name="build" depends="compile">
