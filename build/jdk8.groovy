@@ -36,6 +36,11 @@ node {
       projectNameEntry -> 
         println projectNameEntry.key
         println projectNameEntry.value
+        projectNameEntry.value.each {
+          fileEntry -> 
+            println fileEntry.key
+            println fileEntry.value
+        }
     }
   }
 }
