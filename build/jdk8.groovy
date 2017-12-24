@@ -1,4 +1,4 @@
- node {
+{ node {
   stage('Preparation') {
     println "MAVEN_HOME = " + MAVEN_HOME
     println "WORKSPACE = " + WORKSPACE
@@ -32,8 +32,12 @@
         }
       }
     }
-    changeMap.each{
-      entry -> println entry.key
+    changeMap.each {
+      projectNameEntry -> {
+        fileEntry.value.each {
+          println fileEntry.key + " : " + fileEntry.value
+        }
+      }
     }
   }
 }
