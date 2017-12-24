@@ -21,7 +21,7 @@ node {
         for(int k = 0; k < files.size(); k++) {
           def file = files[k]
           def projectName = file.path.substring(0, file.path.indexOf("/"))
-          if(projectName.startsWith("build")) {
+          if(projectName.startsWith("build00")) {
             continue
           }
           def filePath = file.path.substring(file.path.indexOf("/"))
@@ -50,7 +50,7 @@ node {
     stage('Build') {
       changeMap.each {
         key,value -> 
-          echo '${ANT_HOME}/bin/ant -f ${WORKSPACE}/${key}/build.xml'
+          echo '${ANT_HOME}'
       }
     }
   }
