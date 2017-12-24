@@ -5,5 +5,6 @@ public class HelloWorld {
 		System.out.println("Hello, World!");
 		System.out.println("0001");
 		System.out.println("0002");
+		System.out.println("0003");
 	}
 }
