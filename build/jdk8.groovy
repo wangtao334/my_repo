@@ -93,7 +93,7 @@ node {
   }
   stage('Map Test') {
     def m = [:]
-    def pn = 'aa';
+    def pn = "aa";
     if(!m.containsKey(pn)) {
       println "1"
       m."${pn}" = [:]
@@ -110,6 +110,16 @@ node {
     } else {
       println "4"
       m."${pn}".f4 = "file4"
+    }
+    
+    m.each {
+      mE -> 
+        println mE.key
+        mE.value.each {
+          key,value -> 
+            println key
+            println value
+        }
     }
   }
 }
