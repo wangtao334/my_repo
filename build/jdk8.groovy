@@ -33,7 +33,9 @@ node {
       }
     }
     changeMap.each {
-      projectNameEntry -> println projectNameEntry.key
+      projectNameEntry -> 
+        println projectNameEntry.key
+        println projectNameEntry.value
     }
   }
 }
