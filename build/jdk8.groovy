@@ -76,7 +76,7 @@ node {
   }
   stage('Learning') {
     def delJavaFile = "A.java"
-    def r = '\$*.class'
+    def r = '\\$*.class'
     sh 'rm -rf ${WORKSPACE}/' + delJavaFile.replace(".java", r)
   }
 }
