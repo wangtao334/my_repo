@@ -58,7 +58,7 @@ node {
           }
       }
     } else {
-      'No file changed.'
+      println 'No file changed.'
     }
   }
   stage('Delete Class File') {
