@@ -23,6 +23,9 @@ node {
           println "filePath = " + filePath
           def editType = file.editType.name
           println "editType = " + editType
+          if(changeMap.containsKey("${projectName}")) {
+            changeMap."${projectName}"."${filePath}" = editType
+          }
         }
       }
     }
