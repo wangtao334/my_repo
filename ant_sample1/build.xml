@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="ant_sample1" default="create_zip" basedir=".">
+	<property environment="env"></property>
+	<property name="src" value="src"></property>
+	<property name="dest" value="classes"></property>
+	<property name="jar_file_name" value="ant_sample1.jar"></property>
+	<property name="zip_file_name" value="ant_sample1.zip"></property>
+	<target name="init">
+		<mkdir dir="${dest}"/>
+		<delete file="${zip_file_name}"></delete>
+	</target>
+	<target name="delete" if="env.ant_sample1_delete_jar">
+		<delete file="${jar_file_name}"></delete>
+	</target>
+	<target name="compile" depends="init,delete">
+		<javac srcdir="${src}" destdir="${dest}" includeantruntime="on"></javac>
+	</target>
+	<target name="build" depends="compile">
+		<jar destfile="${jar_file_name}" basedir="${dest}" ></jar>
+	</target>
+	<target name="create_zip" depends="build">
+		<zip destfile="${zip_file_name}">
+			<zipfileset dir="." includes="wang/**"></zipfileset>
+			<zipfileset file="${jar_file_name}"></zipfileset>
+		</zip>
+	</target>
+</project>
