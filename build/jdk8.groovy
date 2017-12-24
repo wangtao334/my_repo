@@ -122,7 +122,7 @@ node {
     }
     
     pn = "ant_sample"
-    env.[pn + "_delete_jar"] = true
+    env."${pn}_delete_jar" = true
     println env.ant_sample_delete_jar
   }
 }
