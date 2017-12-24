@@ -2,6 +2,7 @@ def changeMap = [:]
 def mvnHome
 def antHome
 def javaHome
+def delClsFlg = false
 node {
   stage('Preparation') {
     mvnHome = MAVEN_HOME
@@ -32,6 +33,9 @@ node {
           }
           def filePath = file.path.substring(file.path.indexOf("/"))
           def editType = file.editType.name
+          if(filePath.startsWith("/src") && filePath.endsWith(".java")) {
+            delClsFlg = true
+          }
           if(!changeMap.containsKey("${projectName}")) {
             changeMap."${projectName}" = [:]
             changeMap."${projectName}"."${filePath}" = editType
@@ -49,6 +53,11 @@ node {
           fileEntry -> 
             println fileEntry.value + " : " +fileEntry.key
         }
+    }
+  }
+  if(delClsFlg) {
+    stage('Delete Class File') {
+      println "D C F"
     }
   }
   if(changeMap.size() > 0) {
