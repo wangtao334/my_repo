@@ -33,7 +33,7 @@
       }
     }
     changeMap.each{
-      entry -> println entry.key + entry.value
+      entry -> println entry.key
     }
   }
 }
