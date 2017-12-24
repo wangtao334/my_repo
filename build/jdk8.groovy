@@ -56,7 +56,7 @@ node {
     }
   }
   stage('Delete Class File') {
-    if(elClsFlg) {
+    if(delClsFlg) {
       println "D C F"
     } else {
       println "No java file deleted."
