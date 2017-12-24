@@ -24,7 +24,8 @@ node {
       def entries = changeLogSets[i].items
       for(int j =0; j < entries.length; j++) {
         def entry = entries[j]
-        def files = new ArrayList(entry.affectedFiles)        for(int k = 0; k < files.size(); k++) {
+        def files = new ArrayList(entry.affectedFiles)
+        for(int k = 0; k < files.size(); k++) {
           def file = files[k]
           def projectName = file.path.substring(0, file.path.indexOf("/"))
           if(projectName.startsWith("build")) {
@@ -60,8 +61,8 @@ node {
           projectNameEntry.value.each {
             key,value -> 
               if(value.equals("delete") && key.startsWith("/src") && key.endsWith(".java")) {
-                //sh 'rm -rf ${WORKSPACE}/' + projectNameEntry.key + key.replaceFirst("/src", "/classes").replace(".java", ".class")
-                //sh 'rm -rf ${WORKSPACE}/' + projectNameEntry.key + key.replaceFirst("/src", "/classes").replace(".java", "\\\$$.class")
+                sh 'rm -rf ${WORKSPACE}/' + projectNameEntry.key + key.replaceFirst("/src", "/classes").replace(".java", ".class")
+                sh 'rm -rf ${WORKSPACE}/' + projectNameEntry.key + key.replaceFirst("/src", "/classes").replace(".java", "\\\$$.class")
               }
           }
       }
