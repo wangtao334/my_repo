@@ -7,7 +7,7 @@ node {
   
   stage('Checkout') {
     checkout scm
-    Map<String, String> changeMap = new HashMap<String, String>();
+    def changeMap = []    
     changeMap.put("a", "a00")
     println changeMap.get("a");
     // check change.
