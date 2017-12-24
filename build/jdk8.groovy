@@ -8,8 +8,6 @@ node {
   stage('Checkout') {
     checkout scm
     def changeMap = [:]
-    changeMap.a = "a00"
-    println changeMap.a
     // check change.
     def changeLogSets = currentBuild.changeSets
     for(int i = 0; i < changeLogSets.size(); i++) {
@@ -19,6 +17,8 @@ node {
         def files = new ArrayList(entry.affectedFiles)
         for(int k = 0; k < files.size(); k++) {
           def file = files[k]
+          def projectName = file.path.substring(0, file.path.indexOf("/"))
+          println "projectName = " + projectName
           println file.editType.name + " : " + file.path
         }
       }
