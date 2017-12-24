@@ -46,6 +46,21 @@ node {
       }
     }
   }
+  stage('Change File List') {
+    if(changeMap.size() > 0) {
+      changeMap.each {
+        projectNameEntry -> 
+          println projectNameEntry.key
+          projectNameEntry.value.each {
+            key,value -> 
+              println key
+              println value
+          }
+      }
+    } else {
+      'No file changed.'
+    }
+  }
   stage('Delete Class File') {
     if(delClsFlg) {
       changeMap.each {
