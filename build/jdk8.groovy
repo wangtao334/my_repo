@@ -9,6 +9,7 @@ node {
   }
   
   stage('Checkout') {
+    deleteDir()
     checkout scm
     def changeMap = [:]
     // check change.
@@ -21,6 +22,9 @@ node {
         for(int k = 0; k < files.size(); k++) {
           def file = files[k]
           def projectName = file.path.substring(0, file.path.indexOf("/"))
+          if(projectName.startsWith()) {
+            continue
+          }
           println "projectName = " + projectName
           def filePath = file.path.substring(file.path.indexOf("/"))
           println "filePath = " + filePath
