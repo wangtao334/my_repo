@@ -33,6 +33,7 @@ node {
           }
           def filePath = file.path.substring(file.path.indexOf("/"))
           def editType = file.editType.name
+          println projectName + filePath + " --- " + editType
           if(editType.equals("delete") && filePath.startsWith("/src") && filePath.endsWith(".java")) {
             delClsFlg = true
           }
