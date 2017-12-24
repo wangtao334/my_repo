@@ -1,4 +1,4 @@
-node {
+ node {
   stage('Preparation') {
     println "MAVEN_HOME = " + MAVEN_HOME
     println "WORKSPACE = " + WORKSPACE
@@ -23,7 +23,10 @@ node {
           println "filePath = " + filePath
           def editType = file.editType.name
           println "editType = " + editType
-          if(changeMap.containsKey("${projectName}")) {
+          if(!changeMap.containsKey("${projectName}")) {
+            changeMap."${projectName}" = [:]
+            changeMap."${projectName}"."${filePath}" = editType
+          } else {
             changeMap."${projectName}"."${filePath}" = editType
           }
         }
