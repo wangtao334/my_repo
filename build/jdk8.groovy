@@ -129,7 +129,7 @@ node {
   println env.ant_sample_delete_jar
   
   def dir = new File(WORKSPACE)
-  ir.eachDir {
+  dir.eachDir {
     directory -> 
       println directory
   }
