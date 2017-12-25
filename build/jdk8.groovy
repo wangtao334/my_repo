@@ -83,20 +83,6 @@ node {
 			}
 		}
 	}
-	stage('Change File List') {
-		if(changeMap.size() > 0) {
-			changeMap.each { 
-				projectNameEntry ->
-					println projectNameEntry.key
-					projectNameEntry.value.each { key,value ->
-						println key
-						println value
-				}
-			}
-		} else {
-			println 'No file changed.'
-		}
-	}
 
 	stage('Build') {
 		if(buildAll.equals("true")) {
@@ -118,6 +104,7 @@ node {
 					}
 				}
 				changeMap.each { key,value ->
+					println WORKSPACE + key + '/build.xml'
 					hasBuildFile = fileExists WORKSPACE + key + '/build.xml'
 					if(hasBuildFile) {
 						println key + " is Builded."
