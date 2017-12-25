@@ -1,5 +1,7 @@
 import java.awt.Shape
 
+import groovy.json.internal.Value
+
 def mvnHome
 def antHome
 def javaHome
@@ -27,9 +29,12 @@ node {
 		for(int i = 0; i < projectList.size(); i++) {
 			def projectName = projectList[i]
 			if(!projectName.trim().isEmpty()) {
-				println "Project Name : " + projectName
 				projectMap."${projectName}" = projectName
 			}
+		}
+		projectMap.each {
+			key,Value -> 
+				println "Project Name --- " + key
 		}
 		if(buildAll.equals("true")) {
 			hasFailureFile = fileExists WORKSPACE + failureFileName
