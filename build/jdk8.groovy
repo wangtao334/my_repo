@@ -1,3 +1,5 @@
+import java.awt.Shape
+
 def mvnHome
 def antHome
 def javaHome
@@ -34,7 +36,6 @@ node {
 			failureProjectList = failureFile.split("\n")
 			sh 'rm -rf ' + WORKSPACE + failureFileName
 		}
-		sh 'ls || echo "Hello"'
 	}
 
 	stage('Checkout') {
@@ -99,16 +100,19 @@ node {
 	}
 
 	stage('Build') {
-		
 		if(changeMap.size() > 0) {
 			changeMap.each { key,value ->
 				hasBuildFile = fileExists WORKSPACE + key + '/build.xml'
 				if(hasBuildFile) {
 					println key + " is Builded."
-					sh 'ant -f ${WORKSPACE}/' + key + '/build.xml'
+					sh 'ant -f ${WORKSPACE}/' + key + '/build.xml || echo ' + key + ' >> ' + WORKSPACE + failureFileName
 				} else {
 					println key + "does not have build.xml."
 				}
+			}
+			hasFailureFile = fileExists WORKSPACE + failureFileName
+			if(hasFailureFile) {
+				sh 'please check the build.'
 			}
 		} else {
 			println "No project changed."
