@@ -10,6 +10,7 @@ def delClsFlg = false
 def hasFailureFile = false
 def failureFileName = "failure"
 def failureProjectList = [:]
+def buildAll = build_all
 node {
 	stage('Preparation') {
 		mvnHome = MAVEN_HOME
@@ -41,6 +42,7 @@ node {
 		} else {
 			println "is not"
 		}
+		println buildAll
 	}
 
 	stage('Checkout') {
