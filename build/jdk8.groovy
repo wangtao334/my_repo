@@ -121,7 +121,7 @@ node {
 		env."${pn}_delete_jar" = true
 		println env.ant_sample_delete_jar
 
-		def dir = new File(WORKSPACE)
-		dir.eachDir { directory ->  println directory }
+		def projectFile = readFile encoding: 'utf-8', file: '${WORKSPACE}/build/project_list'
+		println projectFile
 	}
 }
