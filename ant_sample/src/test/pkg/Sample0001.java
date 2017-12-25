@@ -7,5 +7,6 @@ public class Sample0001 {
 		adfa
 		afdfdfd0000fdfdf
 		dfdf
+		adf
 	}
 }

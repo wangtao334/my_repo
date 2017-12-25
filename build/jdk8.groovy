@@ -37,16 +37,16 @@ node {
 				println "Project Name --- " + key
 		}
 		if(buildAll.equals("true")) {
-			hasFailureFile = fileExists WORKSPACE + failureFileName
+			hasFailureFile = fileExists WORKSPACE + '/' + failureFileName
 			if(hasFailureFile) {
-				sh 'rm -rf ' + WORKSPACE + failureFileName
+				sh 'rm -rf ' + WORKSPACE + '/' + failureFileName
 			}
 		} else {
-			hasFailureFile = fileExists WORKSPACE + failureFileName
+			hasFailureFile = fileExists WORKSPACE + '/' + failureFileName
 			if(hasFailureFile) {
-				def failureFile = readFile WORKSPACE + failureFileName
+				def failureFile = readFile WORKSPACE + '/' + failureFileName
 				failureProjectList = failureFile.split("\n")
-				sh 'rm -rf ' + WORKSPACE + failureFileName
+				sh 'rm -rf ' + WORKSPACE + '/' + failureFileName
 			}
 		}
 	}
@@ -87,7 +87,7 @@ node {
 	stage('Build') {
 		if(buildAll.equals("true")) {
 			projectMap.each { key,value ->
-				hasBuildFile = fileExists WORKSPACE + key + '/build.xml'
+				hasBuildFile = fileExists WORKSPACE + '/' + key + '/build.xml'
 				if(hasBuildFile) {
 					println key + " is Builded."
 					sh 'ant -f ${WORKSPACE}/' + key + '/build.xml'
@@ -104,16 +104,16 @@ node {
 					}
 				}
 				changeMap.each { key,value ->
-					println WORKSPACE + key + '/build.xml'
-					hasBuildFile = fileExists WORKSPACE + key + '/build.xml'
+					println WORKSPACE + '/' + key + '/build.xml'
+					hasBuildFile = fileExists WORKSPACE + '/' + key + '/build.xml'
 					if(hasBuildFile) {
 						println key + " is Builded."
-						sh 'ant -f ${WORKSPACE}/' + key + '/build.xml || echo ' + key + ' >> ' + WORKSPACE + failureFileName
+						sh 'ant -f ${WORKSPACE}/' + key + '/build.xml || echo ' + key + ' >> ' + WORKSPACE + '/' + failureFileName
 					} else {
 						println key + " does not have build.xml."
 					}
 				}
-				hasFailureFile = fileExists WORKSPACE + failureFileName
+				hasFailureFile = fileExists WORKSPACE + '/' + failureFileName
 				if(hasFailureFile) {
 					sh 'please check the build.'
 				}
