@@ -121,7 +121,7 @@ node {
 		env."${pn}_delete_jar" = true
 		println env.ant_sample_delete_jar
 
-		def projectFile = readFile encoding: 'utf-8', file: '${WORKSPACE}/build/project_list'
+		def projectFile = readFile encoding: 'utf-8', file: 'build/project_list'
 		println projectFile
 	}
 }
