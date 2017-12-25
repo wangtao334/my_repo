@@ -1,6 +1,5 @@
-import groovy.transform.stc.IncorrectTypeHintException
-
 def changeMap = [:]
+def projectMap = [:]
 def mvnHome
 def antHome
 def javaHome
@@ -19,9 +18,12 @@ node {
 		def projectFile = readFile encoding: 'utf-8', file: 'build/project_list'
 		def projectList = projectFile.split("\n")
 		for(int i = 0; i < projectList.size(); i++) {
-			println "Project Name : " + projectList[i]
+			def projectName = projectList[i]
+			if(!projectName.trim().isEmpty()) {
+				println "Project Name : " + projectName
+				projectMap."${projectName}" = projectName
+			}
 		}
-		println projectName.isCase("aaa")
 	}
 
 	stage('Checkout') {
