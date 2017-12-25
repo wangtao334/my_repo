@@ -37,7 +37,7 @@ node {
 			failureProjectList = failureFile.split("\n")
 			sh 'rm -rf ' + WORKSPACE + failureFileName
 		}
-		if("${build_all}".equals("true")) {
+		if(buildAll) {
 			println "is"
 		} else {
 			println "is not"
