@@ -25,7 +25,7 @@ node {
 		println "JAVA_HOME = " + javaHome
 		sh 'java -version'
 		def projectFile = readFile encoding: 'utf-8', file: 'build/project_list'
-		def projectList = projectFile.split("\n")
+		def projectList = projectFile.split(";")
 		for(int i = 0; i < projectList.size(); i++) {
 			def projectName = projectList[i]
 			if(!projectName.trim().isEmpty()) {
