@@ -71,11 +71,7 @@ node {
 					}
 					def filePath = file.path.substring(file.path.indexOf("/"))
 					def editType = file.editType.name
-					//					if(filePath.startsWith("/src") && filePath.endsWith(".java")) {
-					//						if(editType.equals("delete")) {
-					//							delClsFlg = true
-					//						}
-					//					}
+					println projectName + " --- " + filePath + " --- " + editType
 					if(!changeMap.containsKey(projectName)) {
 						changeMap."${projectName}" = [:]
 						changeMap."${projectName}"."${filePath}" = editType
@@ -100,21 +96,6 @@ node {
 			println 'No file changed.'
 		}
 	}
-	//	stage('Delete Class File') {
-	//		if(delClsFlg) {
-	//			changeMap.each { projectNameEntry ->
-	//				projectNameEntry.value.each { key,value ->
-	//					if(value.equals("delete") && key.startsWith("/src") && key.endsWith(".java")) {
-	//						def r = '\\$*.class'
-	//						sh 'rm -rf ${WORKSPACE}/' + projectNameEntry.key + key.replaceFirst("/src", "/classes").replace(".java", ".class")
-	//						sh 'rm -rf ${WORKSPACE}/' + projectNameEntry.key + key.replaceFirst("/src", "/classes").replace(".java", r)
-	//					}
-	//				}
-	//			}
-	//		} else {
-	//			println "No java file deleted."
-	//		}
-	//	}
 
 	stage('Build') {
 		if(buildAll.equals("true")) {
