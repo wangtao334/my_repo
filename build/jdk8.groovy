@@ -36,6 +36,8 @@ node {
 			key,Value -> 
 				println "Project Name --- " + key
 		}
+		println projectMap.containsKey("ant_sample")
+		println projectMap.containsKey("ant_sample1")
 		if(buildAll.equals("true")) {
 			hasFailureFile = fileExists WORKSPACE + failureFileName
 			if(hasFailureFile) {
