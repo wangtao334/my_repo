@@ -9,7 +9,7 @@ def hasBuildFile = false
 def delClsFlg = false
 def hasFailureFile = false
 def failureFileName = "failure"
-def failureProjectList = [:]
+def failureProjectList = []
 def buildAll = build_all
 node {
 	stage('Preparation') {
@@ -31,21 +31,25 @@ node {
 				projectMap."${projectName}" = projectName
 			}
 		}
-		hasFailureFile = fileExists WORKSPACE + failureFileName
-		if(hasFailureFile) {
-			def failureFile = readFile WORKSPACE + failureFileName
-			failureProjectList = failureFile.split("\n")
-			sh 'rm -rf ' + WORKSPACE + failureFileName
-		}
 		if(buildAll.equals("true")) {
-			println "is"
+			hasFailureFile = fileExists WORKSPACE + failureFileName
+			if(hasFailureFile) {
+				sh 'rm -rf ' + WORKSPACE + failureFileName
+			}
 		} else {
-			println "is not"
+			hasFailureFile = fileExists WORKSPACE + failureFileName
+			if(hasFailureFile) {
+				def failureFile = readFile WORKSPACE + failureFileName
+				failureProjectList = failureFile.split("\n")
+				sh 'rm -rf ' + WORKSPACE + failureFileName
+			}
 		}
-		println buildAll
 	}
 
 	stage('Checkout') {
+		if(buildAll.equals("true")) {
+			deleteDir()
+		}
 		checkout scm
 		// check change.
 		def changeLogSets = currentBuild.changeSets
@@ -62,11 +66,11 @@ node {
 					}
 					def filePath = file.path.substring(file.path.indexOf("/"))
 					def editType = file.editType.name
-					if(filePath.startsWith("/src") && filePath.endsWith(".java")) {
-						if(editType.equals("delete")) {
-							delClsFlg = true
-						}
-					}
+					//					if(filePath.startsWith("/src") && filePath.endsWith(".java")) {
+					//						if(editType.equals("delete")) {
+					//							delClsFlg = true
+					//						}
+					//					}
 					if(!changeMap.containsKey(projectName)) {
 						changeMap."${projectName}" = [:]
 						changeMap."${projectName}"."${filePath}" = editType
@@ -90,39 +94,57 @@ node {
 			println 'No file changed.'
 		}
 	}
-	stage('Delete Class File') {
-		if(delClsFlg) {
-			changeMap.each { projectNameEntry ->
-				projectNameEntry.value.each { key,value ->
-					if(value.equals("delete") && key.startsWith("/src") && key.endsWith(".java")) {
-						def r = '\\$*.class'
-						sh 'rm -rf ${WORKSPACE}/' + projectNameEntry.key + key.replaceFirst("/src", "/classes").replace(".java", ".class")
-						sh 'rm -rf ${WORKSPACE}/' + projectNameEntry.key + key.replaceFirst("/src", "/classes").replace(".java", r)
-					}
-				}
-			}
-		} else {
-			println "No java file deleted."
-		}
-	}
+	//	stage('Delete Class File') {
+	//		if(delClsFlg) {
+	//			changeMap.each { projectNameEntry ->
+	//				projectNameEntry.value.each { key,value ->
+	//					if(value.equals("delete") && key.startsWith("/src") && key.endsWith(".java")) {
+	//						def r = '\\$*.class'
+	//						sh 'rm -rf ${WORKSPACE}/' + projectNameEntry.key + key.replaceFirst("/src", "/classes").replace(".java", ".class")
+	//						sh 'rm -rf ${WORKSPACE}/' + projectNameEntry.key + key.replaceFirst("/src", "/classes").replace(".java", r)
+	//					}
+	//				}
+	//			}
+	//		} else {
+	//			println "No java file deleted."
+	//		}
+	//	}
 
 	stage('Build') {
-		if(changeMap.size() > 0) {
-			changeMap.each { key,value ->
+		if(buildAll.equals("true")) {
+			projectMap.each { key,value ->
 				hasBuildFile = fileExists WORKSPACE + key + '/build.xml'
 				if(hasBuildFile) {
 					println key + " is Builded."
-					sh 'ant -f ${WORKSPACE}/' + key + '/build.xml || echo ' + key + ' >> ' + WORKSPACE + failureFileName
+					sh 'ant -f ${WORKSPACE}/' + key + '/build.xml'
 				} else {
-					println key + "does not have build.xml."
+					println key + " does not have build.xml."
 				}
 			}
-			hasFailureFile = fileExists WORKSPACE + failureFileName
-			if(hasFailureFile) {
-				sh 'please check the build.'
-			}
 		} else {
-			println "No project changed."
+			if(changeMap.size() > 0) {
+				for(int i = 0; i < failureProjectList.size(); i++) {
+					def projectName = failureProjectList[i]
+					if(!changeMap.containsKey(projectName)) {
+						changeMap."${projectName}" = [:]
+					}
+				}
+				changeMap.each { key,value ->
+					hasBuildFile = fileExists WORKSPACE + key + '/build.xml'
+					if(hasBuildFile) {
+						println key + " is Builded."
+						sh 'ant -f ${WORKSPACE}/' + key + '/build.xml || echo ' + key + ' >> ' + WORKSPACE + failureFileName
+					} else {
+						println key + " does not have build.xml."
+					}
+				}
+				hasFailureFile = fileExists WORKSPACE + failureFileName
+				if(hasFailureFile) {
+					sh 'please check the build.'
+				}
+			} else {
+				println "No project changed."
+			}
 		}
 	}
 	stage('Test') {
