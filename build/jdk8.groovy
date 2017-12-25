@@ -35,13 +35,12 @@ node {
 				for(int k = 0; k < files.size(); k++) {
 					def file = files[k]
 					def projectName = file.path.substring(0, file.path.indexOf("/"))
-					if(projectName.startsWith("build")) {
+					if(!projectList.contains(projectName)) {
 						continue
 					}
 					def filePath = file.path.substring(file.path.indexOf("/"))
 					def editType = file.editType.name
 					if(filePath.startsWith("/src") && filePath.endsWith(".java")) {
-						env."${projectName}_delete_jar" = true
 						if(editType.equals("delete")) {
 							delClsFlg = true
 						}

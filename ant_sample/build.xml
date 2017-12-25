@@ -7,12 +7,8 @@
 	<property name="zip_file_name" value="ant_sample.zip"></property>
 	<target name="init">
 		<mkdir dir="${dest}"/>
-		<delete file="${zip_file_name}"></delete>
 	</target>
-	<target name="delete" if="env.ant_sample_delete_jar">
-		<delete file="${jar_file_name}"></delete>
-	</target>
-	<target name="compile" depends="init,delete">
+	<target name="compile" depends="init">
 		<javac srcdir="${src}" destdir="${dest}" includeantruntime="on"></javac>
 	</target>
 	<target name="build" depends="compile">
