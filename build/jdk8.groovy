@@ -21,6 +21,7 @@ node {
 		for(int i = 0; i < projectList.size(); i++) {
 			println "Project Name : " + projectList[i]
 		}
+		println projectName.contains("aaa")
 	}
 
 	stage('Checkout') {
