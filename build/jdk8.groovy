@@ -1,9 +1,13 @@
-def changeMap = [:]
-def projectMap = [:]
 def mvnHome
 def antHome
 def javaHome
+def changeMap = [:]
+def projectMap = [:]
+def hasBuildFile = false
 def delClsFlg = false
+def hasFailureFile = false
+def failureFileName = "failure"
+def failureProjectList = [:]
 node {
 	stage('Preparation') {
 		mvnHome = MAVEN_HOME
@@ -24,6 +28,13 @@ node {
 				projectMap."${projectName}" = projectName
 			}
 		}
+		hasFailureFile = fileExists WORKSPACE + failureFileName
+		if(hasFailureFile) {
+			def failureFile = readFile WORKSPACE + failureFileName
+			failureProjectList = failureFile.split("\n")
+			sh 'rm -rf ' + WORKSPACE + failureFileName
+		}
+		sh 'ls || echo "Hello"'
 	}
 
 	stage('Checkout') {
@@ -88,10 +99,16 @@ node {
 	}
 
 	stage('Build') {
+		
 		if(changeMap.size() > 0) {
 			changeMap.each { key,value ->
-				println key + " is Builded."
-				sh 'ant -f ${WORKSPACE}/' + key + '/build.xml'
+				hasBuildFile = fileExists WORKSPACE + key + '/build.xml'
+				if(hasBuildFile) {
+					println key + " is Builded."
+					sh 'ant -f ${WORKSPACE}/' + key + '/build.xml'
+				} else {
+					println key + "does not have build.xml."
+				}
 			}
 		} else {
 			println "No project changed."
