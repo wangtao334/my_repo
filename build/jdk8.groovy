@@ -1,3 +1,5 @@
+import groovy.transform.stc.IncorrectTypeHintException
+
 def changeMap = [:]
 def mvnHome
 def antHome
@@ -122,6 +124,9 @@ node {
 		println env.ant_sample_delete_jar
 
 		def projectFile = readFile encoding: 'utf-8', file: 'build/project_list'
-		println projectFile
+		def projectList = projectFile.split("\n")
+		for(int i = 0; i < projectList.size(); i++) {
+			println i + projectList[i]
+		}
 	}
 }
