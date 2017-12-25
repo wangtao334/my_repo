@@ -5,7 +5,6 @@ def mvnHome
 def antHome
 def javaHome
 def delClsFlg = false
-def projectList = projectFile.split("\n")
 node {
 	stage('Preparation') {
 		mvnHome = MAVEN_HOME
@@ -18,6 +17,7 @@ node {
 		println "JAVA_HOME = " + javaHome
 		sh 'java -version'
 		def projectFile = readFile encoding: 'utf-8', file: 'build/project_list'
+		def projectList = projectFile.split("\n")
 		for(int i = 0; i < projectList.size(); i++) {
 			println "Project Name : " + projectList[i]
 		}
